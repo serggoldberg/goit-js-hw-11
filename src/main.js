@@ -6,10 +6,9 @@ import { getImages } from './js/pixabay-api';
 
 import { getGallery } from './js/render-functions';
 
-const gallery = document.querySelector('.gallery');
-const loaderEl = document.querySelector('.loader');
-
 const refs = {
+  loaderEl: document.querySelector('.loader'),
+  gallery: document.querySelector('.gallery'),
   formEl: document.querySelector('.form-search'),
   inputEl: document.querySelector('.input-text'),
 };
@@ -38,9 +37,8 @@ refs.formEl.addEventListener('submit', event => {
           position: 'topRight',
         });
       } else {
-        deleteLoad();
+        hideLoader();
         const markup = getGallery(data.hits);
-        setTimeout(createLoad, 2000);
       }
     })
     .catch(error => {
@@ -54,9 +52,6 @@ refs.formEl.addEventListener('submit', event => {
     });
 });
 
-function deleteLoad() {
+function hideLoader() {
   loaderEl.classList.remove('visually-hidden');
-}
-function createLoad() {
-  loaderEl.classList.add('visually-hidden');
 }
